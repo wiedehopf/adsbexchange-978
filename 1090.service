@@ -1,0 +1,22 @@
+
+[Unit]
+Wants=network.target
+After=network.target
+
+[Service]
+EnvironmentFile=/usr/local/share/adsb-exchange-978/default
+EnvironmentFile=/etc/default/adsb-exchange-978
+SyslogIdentifier=adsb-exchange-978
+RuntimeDirectory=adsb-exchange-978
+User=adsb-exchange-978
+RuntimeDirectoryMode=0755
+ExecStart=/usr/local/share/adsb-exchange-978/readsb \
+ $RECEIVER_OPTIONS $DECODER_OPTIONS $NET_OPTIONS $JSON_OPTIONS --net-ri-port $AVR_IN_PORT \
+ --write-json /run/adsb-exchange-978 --quiet
+Type=simple
+Restart=on-failure
+RestartSec=30
+Nice=5
+
+[Install]
+WantedBy=default.target
