@@ -10,7 +10,7 @@ mkdir -p $ipath
 
 if ! id -u "$name" &>/dev/null
 then
-    adduser --system --home $ipath --no-create-home --quiet tar1090
+    adduser --system --home "$ipath" --no-create-home --quiet "$name"
 fi
 
 
@@ -18,8 +18,8 @@ commands="git socat gcc make ld"
 packages="git socat build-essential"
 install=""
 
-for PKG in $packages; do
-	if ! command -v "$PKG" &>/dev/null
+for CMD in $commands; do
+	if ! command -v "$CMD" &>/dev/null
 	then
         install=1
 	fi
