@@ -7,6 +7,7 @@ ipath="/usr/local/share/$name"
 
 mkdir -p $ipath
 
+current_path=$(pwd)
 
 if ! id -u "$name" &>/dev/null
 then
@@ -55,6 +56,7 @@ if ! [ -f $ipath/readsb ]; then
 	cp readsb $ipath
 fi
 
+cd "$current_path"
 
 if [[ "$1" == "test" ]]
 then
