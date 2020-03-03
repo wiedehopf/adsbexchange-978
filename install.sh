@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-name="adsb-exchange-978"
+name="adsbexchange-978"
 repo="https://github.com/wiedehopf/$name"
 ipath="/usr/local/share/$name"
 

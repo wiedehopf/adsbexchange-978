@@ -1,6 +1,6 @@
 #!/bin/bash
 
-name="adsb-exchange-978"
+name="adsbexchange-978"
 ipath="/usr/local/share/$name"
 
 

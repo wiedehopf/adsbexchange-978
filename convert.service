@@ -2,15 +2,15 @@
 [Unit]
 Wants=network.target
 After=network.target
-PartOf=adsb-exchange-978.service
-ReloadPropagatedFrom=adsb-exchange-978.service
+PartOf=adsbexchange-978.service
+ReloadPropagatedFrom=adsbexchange-978.service
 
 [Service]
-EnvironmentFile=/usr/local/share/adsb-exchange-978/default
-EnvironmentFile=/etc/default/adsb-exchange-978
-SyslogIdentifier=adsb-exchange-978-convert
-User=adsb-exchange-978
-ExecStart=-/usr/local/share/adsb-exchange-978/convert.sh
+EnvironmentFile=/usr/local/share/adsbexchange-978/default
+EnvironmentFile=/etc/default/adsbexchange-978
+SyslogIdentifier=adsbexchange-978-convert
+User=adsbexchange-978
+ExecStart=-/usr/local/share/adsbexchange-978/convert.sh
 Type=simple
 Restart=always
 RestartSec=30
