@@ -41,7 +41,7 @@ fi
 
 if ! [ -f $ipath/uat2esnt ]; then
 	rm -rf /tmp/dump978 &>/dev/null || true
-	git clone --single-branch --depth 1 --branch master https://github.com/wiedehopf/dump978.git /tmp/dump978
+	git clone --single-branch --depth 1 --branch master https://github.com/adsbxchange/uat2esnt.git /tmp/dump978
 	cd /tmp/dump978/
 	make uat2esnt
 	cp uat2esnt $ipath
@@ -87,3 +87,6 @@ systemctl enable "$name"
 systemctl enable "$name-convert"
 systemctl restart "$name"
 systemctl restart "$name-convert"
+
+
+echo "Install successful"
