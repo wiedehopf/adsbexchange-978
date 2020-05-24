@@ -2,7 +2,7 @@
 set -e
 
 name="adsbexchange-978"
-repo="https://github.com/wiedehopf/$name"
+repo="https://github.com/adsbxchange/$name"
 ipath="/usr/local/share/$name"
 
 mkdir -p $ipath
@@ -30,13 +30,17 @@ if [[ -n "$install" ]]
 then
 	echo "Installing required packages: $packages"
 	apt-get update || true
-	if ! apt-get install -y $packages
-	then
-		echo "Failed to install required packages: $install"
-		echo "Exiting ..."
-		exit 1
-	fi
+	apt-get install -y $packages
 	hash -r || true
+
+    for CMD in $commands; do
+        if ! command -v "$CMD" &>/dev/null
+        then
+            echo "Failed to install required packages!"
+            echo "Exiting ..."
+            exit 1
+        fi
+    done
 fi
 
 if ! [ -f $ipath/uat2esnt ]; then
