@@ -43,22 +43,18 @@ then
     done
 fi
 
-if ! [ -f $ipath/uat2esnt ]; then
-	rm -rf /tmp/dump978 &>/dev/null || true
-	git clone --single-branch --depth 1 --branch master https://github.com/adsbxchange/uat2esnt.git /tmp/dump978
-	cd /tmp/dump978/
-	make uat2esnt
-	cp uat2esnt $ipath
-fi
+rm -rf /tmp/dump978 &>/dev/null || true
+git clone --single-branch --depth 1 --branch master https://github.com/adsbxchange/uat2esnt.git /tmp/dump978
+cd /tmp/dump978/
+make uat2esnt
+cp uat2esnt $ipath
 
-if ! [ -f $ipath/readsb ]; then
-	rm -rf /tmp/readsb &>/dev/null || true
-	git clone --single-branch --depth 1 --branch net-only https://github.com/wiedehopf/readsb.git /tmp/readsb
-	cd /tmp/readsb
-    apt install libncurses5-dev
-	make
-	cp readsb $ipath
-fi
+rm -rf /tmp/readsb &>/dev/null || true
+git clone --single-branch --depth 1  https://github.com/adsbxchange/readsb.git /tmp/readsb
+cd /tmp/readsb
+apt install libncurses5-dev
+make
+cp readsb $ipath
 
 cd "$current_path"
 
@@ -84,7 +80,7 @@ fi
 cp -n default "/etc/default/$name"
 cp default convert.sh $ipath
 
-cp 1090.service "/lib/systemd/system/$name.service"
+cp feed.service "/lib/systemd/system/$name.service"
 cp convert.service "/lib/systemd/system/$name-convert.service"
 
 systemctl enable "$name"
