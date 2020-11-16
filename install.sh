@@ -1,6 +1,15 @@
 #!/bin/bash
 set -e
 
+if [ -f /boot/adsb-config.txt ]; then
+    echo --------
+    echo "You are using the adsbx image, the 978 feed setup script does not need to be installed."
+    echo "You should already be feeding, check here: https://adsbexchange.com/myip/"
+    echo --------
+    echo "Exiting."
+    exit 1
+fi
+
 name="adsbexchange-978"
 repo="https://github.com/adsbxchange/$name"
 ipath="/usr/local/share/$name"
