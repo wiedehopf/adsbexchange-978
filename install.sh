@@ -58,12 +58,17 @@ cd /tmp/dump978/
 make uat2esnt
 cp uat2esnt $ipath
 
-rm -rf /tmp/readsb &>/dev/null || true
-git clone --single-branch --depth 1  https://github.com/adsbxchange/readsb.git /tmp/readsb
-cd /tmp/readsb
-apt install libncurses5-dev
-make
-cp readsb $ipath
+READSB_REPO="https://github.com/adsbxchange/readsb.git"
+READSB_VERSION="$(git ls-remote $READSB_REPO | grep HEAD | cut -f1)"
+if ! grep -e "$READSB_VERSION" -qs $ipath/readsb_version
+    rm -rf /tmp/readsb &>/dev/null || true
+    git clone --single-branch --depth 1 $READSB_REPO /tmp/readsb
+    cd /tmp/readsb
+    apt install -y libncurses5-dev zlib1g-dev zlib1g
+    make
+    cp readsb $ipath
+    git rev-parse HEAD > $ipath/readsb_version 2>> $LOGFILE
+fi
 
 cd "$current_path"
 
