@@ -18,8 +18,7 @@ mkdir -p $ipath
 
 current_path=$(pwd)
 
-if ! id -u "$name" &>/dev/null
-then
+if ! id -u "$name" &>/dev/null; then
     adduser --system --home "$ipath" --no-create-home --quiet "$name"
 fi
 
@@ -35,8 +34,7 @@ for CMD in $commands; do
 	fi
 done
 
-if [[ -n "$install" ]]
-then
+if [[ -n "$install" ]]; then
 	echo "Installing required packages: $packages"
 	apt-get update || true
 	apt-get install -y $packages
@@ -60,27 +58,26 @@ cp uat2esnt $ipath
 
 READSB_REPO="https://github.com/adsbxchange/readsb.git"
 READSB_VERSION="$(git ls-remote $READSB_REPO | grep HEAD | cut -f1)"
-if ! grep -e "$READSB_VERSION" -qs $ipath/readsb_version
-    rm -rf /tmp/readsb &>/dev/null || true
+if ! grep -e "$READSB_VERSION" -qs $ipath/readsb_version; then
+    rm -rf /tmp/readsb
     git clone --single-branch --depth 1 $READSB_REPO /tmp/readsb
     cd /tmp/readsb
-    apt install -y libncurses5-dev zlib1g-dev zlib1g
+    apt install -y libncurses5-dev zlib1g-dev zlib1g || true
     make
+    rm -f $ipath/readsb
     cp readsb $ipath
-    git rev-parse HEAD > $ipath/readsb_version 2>> $LOGFILE
+    git rev-parse HEAD > $ipath/readsb_version
 fi
 
 cd "$current_path"
 
-if [[ "$1" == "test" ]]
-then
+if [[ "$1" == "test" ]]; then
 	rm -r $ipath/test 2>/dev/null || true
 	mkdir -p $ipath/test
 	cp -r ./* $ipath/test
 	cd $ipath/test
 
-elif git clone --depth 1 $repo $ipath/git 2>/dev/null || cd $ipath/git
-then
+elif git clone --depth 1 $repo $ipath/git 2>/dev/null || cd $ipath/git; then
 	cd $ipath/git
 	git checkout -f master
 	git fetch
