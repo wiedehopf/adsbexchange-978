@@ -86,6 +86,8 @@ else
 	exit 1
 fi
 
+bash create-uuid.sh
+
 cp -n default "/etc/default/$name"
 cp default convert.sh $ipath
 
