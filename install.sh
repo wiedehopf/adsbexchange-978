@@ -100,7 +100,7 @@ fi
 
 bash create-uuid.sh
 
-cp -n default "/etc/default/$name"
+cp default "/etc/default/$name"
 cp default convert.sh $ipath
 
 cp feed.service "/lib/systemd/system/$name.service"
