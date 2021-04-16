@@ -81,26 +81,37 @@ fi
 
 cd "$current_path"
 
+function getGIT() {
+    # getGIT $REPO $BRANCH $TARGET-DIR
+    if [[ -z "$1" ]] || [[ -z "$2" ]] || [[ -z "$3" ]]; then
+        echo "getGIT wrong usage, check your script or tell the author!" 1>&2
+        return 1
+    fi
+    if ! cd "$3" &>/dev/null || ! git fetch --depth 2 origin "$2" || ! git reset --hard FETCH_HEAD; then
+        if ! rm -rf "$3" || ! git clone --depth 2 --single-branch --branch "$2" "$1" "$3"; then
+            return 1
+        fi
+    fi
+    return 0
+}
+
 if [[ "$1" == "test" ]]; then
 	rm -r $ipath/test 2>/dev/null || true
 	mkdir -p $ipath/test
 	cp -r ./* $ipath/test
 	cd $ipath/test
-
-elif git clone --depth 1 $repo $ipath/git 2>/dev/null || cd $ipath/git; then
-	cd $ipath/git
-	git checkout -f master
-	git fetch
-	git reset --hard origin/master
-
 else
-	echo "Unable to download files, exiting! (Maybe try again?)"
-	exit 1
+    if ! getGIT $repo master $ipath/git || ! cd $ipath/git; then
+        echo "Unable to download files, exiting! (Maybe try again?)"
+        exit 1
+    fi
 fi
 
 bash create-uuid.sh
 
-cp default "/etc/default/$name"
+if ! grep -qs -e DECODER_OPTIONS "/etc/default/$name"; then
+    cp default "/etc/default/$name"
+fi
 cp default convert.sh $ipath
 
 cp feed.service "/lib/systemd/system/$name.service"
@@ -157,3 +168,8 @@ chmod a+x "/usr/local/bin/$name-set-location"
 
 
 echo "Install successful"
+
+cd "$ipath"
+
+wget -O tar1090-install.sh https://raw.githubusercontent.com/wiedehopf/tar1090/master/install.sh
+bash tar1090-install.sh "/run/$name" ax978
