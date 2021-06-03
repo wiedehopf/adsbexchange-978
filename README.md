@@ -1,6 +1,7 @@
 # adsbexchange-978
 The ADS-B exchange UAT/978 feed client for use with dump978-fa
 
+IMPORTANT: If you don't already run dump978-fa, please do that first: https://github.com/wiedehopf/adsb-wiki/wiki/Installing-dump978-fa-and-feeding-adsbexchange-with-UAT-traffic
 
 ## Installation / Update:
 
