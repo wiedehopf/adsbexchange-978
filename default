@@ -1,6 +1,9 @@
 # dump978-fa output:
 SOURCE="localhost:30978"
 
+#LATITUDE="0.0000"
+#LONGITUDE="0.0000"
+
 # remove # on next line to disable TIS-B uploading
 #CONVERT_OPTIONS="-t"
 #
