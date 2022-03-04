@@ -10,5 +10,6 @@ SOURCE="localhost:30978"
 DECODER_OPTIONS=""
 TARGET="--net-connector feed.adsbexchange.com,30004,beast_reduce_out,feed.adsbexchange.com,64004"
 NET_OPTIONS="--net-only --net --net-heartbeat 60 --net-ro-size 1280 --net-ro-interval 0.2 --net-ri-port 37981 --net-bo-port 37985"
+JSON_OPTIONS="--json-location-accuracy 2 --range-outline-hours 24"
 
 IPATH="/usr/local/share/adsbexchange-978"
