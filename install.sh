@@ -50,20 +50,6 @@ if [[ -n "$install" ]]; then
     done
 fi
 
-UAT_REPO="https://github.com/adsbxchange/uat2esnt.git"
-UAT_VERSION="$(git ls-remote $UAT_REPO | grep HEAD | cut -f1)"
-if ! grep -e "$UAT_VERSION" -qs $ipath/uat2esnt_version; then
-    rm -rf /tmp/uat2esnt
-    git clone --single-branch --depth 1 --branch master $UAT_REPO /tmp/uat2esnt
-    cd /tmp/uat2esnt
-    make -j3 uat2esnt
-    rm -f $ipath/uat2esnt
-    cp uat2esnt $ipath
-    git rev-parse HEAD > $ipath/uat2esnt_version
-else
-    echo uat2esnt already current version
-fi
-
 READSB_REPO="https://github.com/adsbxchange/readsb.git"
 READSB_VERSION="$(git ls-remote $READSB_REPO | grep HEAD | cut -f1)"
 if ! grep -e "$READSB_VERSION" -qs $ipath/readsb_version; then
