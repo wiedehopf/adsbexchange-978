@@ -5,7 +5,7 @@ ipath="/usr/local/share/$name"
 
 
 systemctl disable --now "$name"
-systemctl disable --now "$name-convert"
+systemctl disable --now "$name-convert" &>/dev/null || true
 
 rm -f "/lib/systemd/system/$name.service"
 rm -f "/lib/systemd/system/$name-convert.service"

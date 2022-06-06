@@ -12,7 +12,7 @@ RuntimeDirectory=adsbexchange-978
 User=adsbexchange-978
 RuntimeDirectoryMode=0755
 ExecStart=/usr/local/share/adsbexchange-978/readsb --lat $LATITUDE --lon $LONGITUDE \
- $RECEIVER_OPTIONS $DECODER_OPTIONS $NET_OPTIONS $JSON_OPTIONS $TARGET \
+ $RECEIVER_OPTIONS $DECODER_OPTIONS $NET_OPTIONS $JSON_OPTIONS $SOURCE $TARGET \
  --write-json /run/adsbexchange-978 --quiet --db-file none
 Type=simple
 Restart=on-failure

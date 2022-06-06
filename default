@@ -1,14 +1,15 @@
-# dump978-fa output:
-SOURCE="localhost:30978"
+#
+# dump978-fa port 30978 output is the source:
+# example: SOURCE="--net-connector 127.0.0.1,30978,uat_in"
+#
+SOURCE="--net-connector 127.0.0.1,30978,uat_in"
 
 #LATITUDE="0.0000"
 #LONGITUDE="0.0000"
 
-# remove # on next line to disable TIS-B uploading
-#CONVERT_OPTIONS="-t"
 #
 DECODER_OPTIONS=""
-TARGET="--net-connector feed.adsbexchange.com,30004,beast_reduce_out,feed.adsbexchange.com,64004"
+TARGET="--net-connector feed1.adsbexchange.com,30004,beast_reduce_out,feed2.adsbexchange.com,64004"
 NET_OPTIONS="--net-only --net --net-heartbeat 60 --net-ro-size 1280 --net-ro-interval 0.2 --net-ri-port 37981 --net-bo-port 37985"
 JSON_OPTIONS="--json-location-accuracy 2 --range-outline-hours 24"
 

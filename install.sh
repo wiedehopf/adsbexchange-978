@@ -23,8 +23,8 @@ if ! id -u "$name" &>/dev/null; then
 fi
 
 
-commands="git socat gcc make ld"
-packages="git socat build-essential"
+commands="git gcc make ld"
+packages="git build-essential"
 install=""
 
 for CMD in $commands; do
@@ -109,18 +109,17 @@ fi
 
 bash create-uuid.sh
 
-if ! grep -qs -e DECODER_OPTIONS "/etc/default/$name"; then
+if ! grep -qs -e DECODER_OPTIONS "/etc/default/$name" || ! grep -qs -e 'SOURCE="--net-connector' "/etc/default/$name"; then
     cp default "/etc/default/$name"
 fi
-cp default convert.sh $ipath
+cp default $ipath
+
+systemctl disable --now "$name-convert" &>/dev/null || true
+rm -f "/lib/systemd/system/$name-convert.service"
 
 cp feed.service "/lib/systemd/system/$name.service"
-cp convert.service "/lib/systemd/system/$name-convert.service"
-
 systemctl enable "$name"
-systemctl enable "$name-convert"
 systemctl restart "$name"
-systemctl restart "$name-convert"
 
 # set-location
 cat >"/usr/local/bin/$name-set-location" <<"EOF"
