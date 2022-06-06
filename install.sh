@@ -56,7 +56,7 @@ if ! grep -e "$READSB_VERSION" -qs $ipath/readsb_version; then
     rm -rf /tmp/readsb
     git clone --single-branch --depth 1 $READSB_REPO /tmp/readsb
     cd /tmp/readsb
-    apt install -y libncurses5-dev zlib1g-dev zlib1g || true
+    apt install -y libncurses-dev zlib1g-dev zlib1g || true
     make -j3 AIRCRAFT_HASH_BITS=12
     rm -f $ipath/readsb
     cp readsb $ipath
